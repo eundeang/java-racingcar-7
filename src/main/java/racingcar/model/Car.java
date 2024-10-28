@@ -21,8 +21,16 @@ public class Car {
         final String delimiter = ",";
         return Arrays.stream(userInput.split(delimiter))
                 .filter(name -> isValidateLength(name, 5))
+                .filter(this::isValidateName)
                 .map(Car::new)
                 .toList();
+    }
+    private boolean isValidateName(String name) {
+        final String regex = "^[A-Za-z]+([ ][A-Za-z]+)*$";
+        if(!name.matches(regex)) {
+            throw new IllegalArgumentException("Only English names are supported, with spaces used to separate names.");
+        }
+        return true;
     }
 
     private boolean isValidateLength(String name, final int limitLength) {
