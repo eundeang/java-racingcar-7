@@ -1,7 +1,11 @@
 package racingcar.model;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 import racingcar.util.Direction;
 
 public class Car {
@@ -19,11 +23,23 @@ public class Car {
 
     public List<Car> splitByDelimiter(final String userInput) {
         final String delimiter = ",";
+        Set<String> seen = new HashSet<>();
         return Arrays.stream(userInput.split(delimiter))
                 .filter(name -> isValidateLength(name, 5))
                 .filter(this::isValidateName)
+                .filter(isDuplicatedName())
                 .map(Car::new)
                 .toList();
+    }
+    private Predicate<String> isDuplicatedName() {
+        Set<String> seen = new HashSet<>();
+        return name -> {
+            if (!seen.add(name)) {
+                throw new IllegalArgumentException("중복된 이름이 존재합니다.");
+            }
+            return true;
+        };
+
     }
     private boolean isValidateName(String name) {
         final String regex = "^[A-Za-z]+([ ][A-Za-z]+)*$";
