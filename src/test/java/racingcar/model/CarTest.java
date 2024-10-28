@@ -17,6 +17,16 @@ class CarTest {
                         car.splitByDelimiter("happy,for;")
                 )
                 .isInstanceOf(IllegalArgumentException.class);
+
+        Assertions.assertThatThrownBy(() ->
+                        car.splitByDelimiter(" happy,for\n fsjg")
+                )
+                .isInstanceOf(IllegalArgumentException.class);
+
+        Assertions.assertThatThrownBy(() ->
+                        car.splitByDelimiter("happy,for\n fsjg ")
+                )
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
