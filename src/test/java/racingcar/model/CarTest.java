@@ -49,6 +49,14 @@ class CarTest {
     }
 
     @Test
+    @DisplayName("자동차 이름이 같은 경우 IllegalArgumentException")
+    void 동일_차_이름_입력시_예외발생_테스트() {
+        Assertions.assertThatThrownBy(() -> {
+            car.splitByDelimiter("forky,forky");
+        }).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
     @DisplayName("자동차 이름이 5글자 초과인 경우 IllegalException 반환")
     void 이름_수_제한_초과_테스트() {
         Assertions.assertThatThrownBy(() -> {
