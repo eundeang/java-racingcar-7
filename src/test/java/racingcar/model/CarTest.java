@@ -11,13 +11,12 @@ class CarTest {
     private final Car testCar = new Car("testCar");
 
     @Test
-    @DisplayName("경주 자동차 이름 입력 중 특수문자(구분자(쉼)가 아닌) 또는 공백이 포함되는 경우 IllegalArgumentException")
-    void 자동차_이름_입력에_특수문자가_포함된_경우() {
+    @DisplayName("경주 자동차 이름 입력 중 영어가 아닌 다른 문자나 기호가 포함된 경우 IllegalArgumentException")
+    void 자동차_이름_입력에_미지원언어_또는_기호가_포함된_경우() {
         Assertions.assertThatThrownBy(() ->
                         car.splitByDelimiter("happy,for;")
                 )
                 .isInstanceOf(IllegalArgumentException.class);
-
     }
 
     @Test
